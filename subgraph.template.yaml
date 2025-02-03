@@ -1,29 +1,47 @@
-specVersion: 0.0.2
-description: POAP
-repository: https://github.com/poap-xyz/poap-mainnet-subgraph
+specVersion: 0.0.1
+description: Perp
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: Poap
+    name: Perp
     network: {{ network }}
     source:
-      address: "{{ address }}"
-      abi: Poap
+      address: "{{ perpAddress }}"
+      abi: Perp
       startBlock: {{ startBlock }}
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.9
       language: wasm/assemblyscript
       entities:
-        - EventToken
-        - Transfer
+        - MarketSnapshot
       abis:
-        - name: Poap
-          file: ./abis/{{ file }}.json
+        - name: Perp
+          file: ./abis/{{ perpFile }}.json
       eventHandlers:
-        - event: {{ tokenEvent }}
-          handler: handleEventToken
-        - event: Transfer(indexed address,indexed address,indexed uint256)
-          handler: handleTransfer
+        - event: {{ PositionOpened }}
+          handler: handlePositionOpened
+        - event: {{ PositionClosed }}
+          handler: handlePositionClosed
+      file: ./src/mapping.ts
+  - kind: ethereum/contract
+    name: Beacon
+    network: {{ network }}
+    source:
+      address: "{{ beaconAddress }}"
+      abi: Beacon
+      startBlock: {{ startBlock }}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.9
+      language: wasm/assemblyscript
+      entities:
+        - BeaconSnapshot
+      abis:
+        - name: Beacon
+          file: ./abis/{{ beaconFile }}.json
+      eventHandlers:
+        - event: {{ DataUpdated }}
+          handler: handleDataUpdated
       file: ./src/mapping.ts

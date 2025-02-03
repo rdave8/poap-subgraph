@@ -1,0 +1,11 @@
+{
+    "network": "base-sepolia",
+    "startBlock": 21299998,
+    "perpAddress": "0xa3f128f199D20B828ff8C3a070d0c3347822E89f",
+    "perpFile": "Perp",
+    "PositionOpened": "PositionOpened(indexed address,bool,uint256,uint256,uint256,int256,uint256)",
+    "PositionClosed": "PositionClosed(indexed address,bool,uint256,uint256,uint256,int256,uint256,bool)",
+    "beaconAddress": "0xc1D8d45ECe8D1CB14e6de0192C143e16C21b8F09",
+    "beaconFile": "Beacon",
+    "DataUpdated": "DataUpdated(uint256)"
+}
